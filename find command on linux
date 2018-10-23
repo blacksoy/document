@@ -1,0 +1,12 @@
+오라클 아카이브로그 삭제를 위해 일정 시간 이후의 파일을 찾아 삭제하기를 원함
+
+SQL> select * from v$backup;
+SQL> arvhive log list
+
+# find . -mtime +100    -- 100일 전에 생성된 파일을 찾는 명령
+# find . -mtime +100 -exec rm -f {} \;
+     -- 100일 전에 생성된 파일을 찾아 검색된 파일들"{}"을  "rm -f"로 실행(-exec)
+     -- 구분 종료 "\;"
+
+# find ./*.arc -mtime +100 
+# find ./*.arc -mtime +100 -exec rm -f {} \;
