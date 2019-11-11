@@ -1,0 +1,20 @@
+#======expand filesystem in AIX======
+  command => chsf -a size=[size] [FILESYSTEM]
+
+# df -k /data
+ /dev/lv_data ***** 90% *** /data
+
+# lslv lv_data
+ LOGICAL VOLUME: lv_data VOLUME GROUP : rootvg
+ ***
+ ***
+
+# lsvg rootvg
+ ***
+ ** FREE PPS: 200 (200000 megabyets)
+ ***
+
+# chfs -a size=10G /data   <= absolute size
+# chfs -a size=+10G /data  <= using + sign : relative size
+
+if you meet 0516-787 error see chlv command man page
