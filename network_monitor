@@ -1,0 +1,10 @@
+#======= on centos 7 =======
+# ss -anp
+    a : all, n : port
+# ss -tnp
+    tcp port
+# ss -lnp
+    Listen port
+# ip addr
+    show ip address
+# ip addr show
