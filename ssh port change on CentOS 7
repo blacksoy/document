@@ -1,0 +1,13 @@
+$ ss -lnp | grep 22
+$ systemctl status sshd.service
+$ semanage port -a -t ssh_port_t -p tcp "port number"
+$ vi /etc/ssh/sshd_conf
+    change port "port number" and save then exit
+
+$ systemctl restart sshd.service
+$ systemctl status sshd.service
+
+
+[참고]
+$ systemctl [stop | start | restart | status | enable | disable ] "service_name"
+$ systemctl list-unit-files --type=service
