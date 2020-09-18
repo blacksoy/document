@@ -2,12 +2,14 @@ CentOS7에서 firewall설정 명령
 6이하 버전에서는 iptables명령으로 관리했으나 명령어가 변경됨
 
 # firewall-cmd --list-all
-# firewall-cmd --add-port=9900/tcp --permanent
+# firewall-cmd --permanent --add-port=9900/tcp 
 # firewall-cmd --permanent --add-service=http --add-service=https
 # firewall-cmd --reload
 # firewall-cmd --list-all
 # firewall-cmd --remove-service=ssh
 # firewall-cmd --list-all
-# firewall-cmd --remove-service=ssh --permanent 
+# firewall-cmd --permanent --remove-service=ssh  
+# firewall-cmd --reload
+# firewall-cmd --permanent --remove-port=9900/tcp 
 # firewall-cmd --reload
 # firewall-cmd --list-all
