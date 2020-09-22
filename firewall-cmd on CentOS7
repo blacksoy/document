@@ -13,3 +13,21 @@ CentOS7에서 firewall설정 명령
 # firewall-cmd --permanent --remove-port=9900/tcp 
 # firewall-cmd --reload
 # firewall-cmd --list-all
+
+--------------------------
+   포트포워딩
+-------------------------
+
+-- 포트포워딩 설정 조회
+# firewall-cmd --list-forward-ports 
+-- 80/tcp를 8883/tcp로 포워딩(사용할 포트는 --add-port를 통해서 미리 등록)
+# firewall-cmd --permanent --add-forward-port=port=80:proto=tcp:toport=8883
+# firewall-cmd --permanent --add-masquerade
+# firewall-cmd --reload
+
+-- 포트포워딩 삭제
+# firewall-cmd --list-forward-ports 
+   port=80:proto=tcp:toport=88:toaddr=
+# firewall-cmd --permanent --remove-forward-port=port=80:proto=tcp:toport=88:toaddr=
+# firewall-cmd --permanent --remove-masquerade
+# firewall-cmd --reload
