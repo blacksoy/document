@@ -1,0 +1,18 @@
+
+웹서버 TLS 적용 버전확인 및 SSL인증서 유효성검증 및 유효기간 확인 방법
+(www.google.com을 예시로 작성)
+
+- TLS 운영 버전 확인 방법
+  # openssl s_client -connect www.google.com:443 -tls1
+  # openssl s_client -connect www.google.com:443 -tls1_1
+  # openssl s_client -connect www.google.com:443 -tls1_2
+  # openssl s_client -connect www.google.com:443 -tls1_3
+
+- SSL 인증서 검증 방법
+  (내부)# openssl s_client –connect localhost:443
+  (외부)# openssl s_client –connect www.google.com:443
+
+- SSL 인증서 유효기간 확인 방법
+  (내부)# echo | openssl s_client –servername localhost -connect localhost:443 2>/dev/null | openssl x509 -noout -dates
+  (파일)# openssl x509 -in 인증서파일 -noout -dates
+  (외부)# echo | openssl s_client –servername www.google.com -connect www.google.com:443 2>/dev/null | openssl x509 -noout -dates
