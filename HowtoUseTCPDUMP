@@ -1,0 +1,67 @@
+/*********************************************
+            How to use tcpdump 
+*********************************************/
+
+eth0인터페이스를 기준으로 예시 작성
+
+-- tcp, 목적지 포트 443으로 나가는 패킷
+$ tcpdump -i eth0 tcp and dst port 443
+
+-- tcp이고 양방향 포트가 443이거나 80인 패킷(''으로 조건 표시)
+$ tcpdump -i eth0 'tcp and (port 443 or 80)'
+
+-- tcp이고 목적지 포트가 443이거나 80인 패킷
+$ tcpdump -i eth0 'tcp and (dst port 443 or 80)'
+$ tcpdump -i eth0 'tcp && (dst port 443 || 80)'
+
+-- 8.8.8.8로 나가는 패킷 중 80번 포트를 제외한 패킷
+$ tcpdump -i eth0 dst 8.8.8.8 and not dst port 80
+$ tcpdump -i eth0 dst 8.8.8.8 && ! dst port 80
+
+-- 목적지 IP가 8.8.8.8이고 tcp통신이고 목적지 포트가 53인 피킷
+$ tcpdump -i eth0 dst 8.8.8.8 and tcp and dst port 53
+
+-- 목적지 IP가 8.8.8.8이고 tcp통신이고 목적지 포트가 53인 피킷을 10개만(-c 10) 보여줌
+$ tcpdump -i eth0 -c 10 dst 8.8.8.8 and tcp and dst port 53
+
+-- 패킷을 tcpdump.pcap파일로 저장(명령 후 Ctrl+C를 누르면 파일로 저장) : wireshark로 읽기 가능
+$ tcpdump -w tcpdump.pcap -i eth0 dst 8.8.8.8 and tcp and dst port 53
+
+-- 패킷파일 읽기
+$ tcpdump -r tcpdump.pcap
+
+-- 기타 예시
+$ tcpdump -i eth0 host 10.10.10.2
+$ tcpdump -i eth0 dst 10.10.10.2
+$ tcpdump -i eth0 src 10.10.10.2
+
+$ tcpdump -i eth0 net 10.10.10.0/24
+
+$ tcpdump -i eth0 port 80
+$ tcpdump -i eth0 dst port 80
+$ tcpdump -i eth0 src port 80
+
+
+-- 복합 예시
+$ tcpdump -w tcpdump.log -i eth0 src 10.10.10.10 and src port 9348272 and dst 8.8.8.8 and and dst port 53 and tcp
+$ tcpdump -w tcpdump.log -i eth0 src 10.10.10.10 && src port 9348272 && dst 8.8.8.8 && dst port 53 && tcp
+
+
+옵션
+tcpdump [ -AbdDefhHIJKlLnNOpqRStuUvxX ] [ -B buffer_size ] [ -c count ]
+        [ -C file_size ] [ -G rotate_seconds ] [ -F file ]
+        [ -i interface ] [ -j tstamp_type ] [ -m module ] [ -M secret ]
+        [ -P in|out|inout ]
+        [ -r file ] [ -V file ] [ -s snaplen ] [ -T type ] [ -w file ]
+        [ -W filecount ]
+        [ -E spi@ipaddr algo:secret,...  ]
+        [ -y datalinktype ] [ -z postrotate-command ] [ -Z user ]
+        [ expression ]
+
+        -A Print each packet (minus its link level header) in ASCII. Handy for capturing web pages.
+        -D tcpdump로 패킷을 캡쳐할 수 있는 네트워크 인터페이스 목록을 출력
+        -i 캡쳐할 네트워크 인터페이스를 지정
+        -nn 프로토콜과 포트번호를 숫자로 표시
+        -tttt 캡쳐한 각 패킷에 날짜 기본 형식으로 timestamp 표시
+        -vvv 패킷의 모든 정보표시(TTL 포함)
+        -w 캡쳐한 패킷을 파일(.pcap)로 저장
