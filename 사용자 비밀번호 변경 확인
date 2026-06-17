@@ -1,0 +1,17 @@
+비밀번호 변경 일자 확인
+
+# Windows
+net user
+c:> net user black
+
+
+# Linux
+chage black <--- 설정모드
+$ chage -l black  <--- 조회
+
+
+# AIX
+$ lsuser -a lastupdate black   또는
+$ cat /etc/security/passwd <-- lastupdate 값 
+
+  (lastupdate 읽기) : $ perl -le 'print scalar localtime 1599752757'
